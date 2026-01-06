@@ -5,28 +5,20 @@
 //  Created by Daniel Lu on 1/2/26.
 //
 
-import SwiftUI
-import SwiftData
+import SwiftUI        // SwiftUI framework for building the UI
+
 
 @main
-struct The_Start_GunApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+struct The_Start_GunApp: App {   // Main entry point of the 
+    
+    @StateObject private var settingsVM = SettingsViewModel()
 
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
-
+    // Defines the app’s UI scenes (windows)
     var body: some Scene {
-        WindowGroup {
-            ContentView()
+        WindowGroup {             // Main app window
+            StartGunView()         // Root view shown at launch
+                .environmentObject(settingsVM)
         }
-        .modelContainer(sharedModelContainer)
     }
 }
+
