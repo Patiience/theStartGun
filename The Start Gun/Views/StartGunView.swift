@@ -8,7 +8,6 @@ import SwiftUI
 
 struct StartGunView: View {
     // StateObjects define views @ObservedObject means passed in, while StateObject is owned by current View
-    @StateObject private var viewModel = StartGunViewModel()
     
     @EnvironmentObject var settings: SettingsViewModel
     @StateObject private var viewModel: StartGunViewModel
