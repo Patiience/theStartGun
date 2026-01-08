@@ -69,13 +69,13 @@ final class StartGunViewModel: ObservableObject {
     private func runSequence() async {
         do {
             // 1️⃣ On Your Marks
-            audioPlayer.playSound(named: settings.onYourMarksSound.assetName)
+            audioPlayer.playSound(named: GunSoundDefaults.onYourMarksSound.assetName)
 
             try await sleep(seconds: Double(settings.marksWaitTime))
 
             // 2️⃣ Set
             statusText = "Set"
-            audioPlayer.playSound(named: settings.setSound.assetName)
+            audioPlayer.playSound(named: GunSoundDefaults.setSound.assetName)
 
             // Random delay between Set and Go
             let randomDelay = Double.random(

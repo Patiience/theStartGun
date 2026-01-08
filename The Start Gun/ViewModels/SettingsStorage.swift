@@ -7,55 +7,59 @@
 
 import Foundation
 
-// Centralized UserDefaults access
-// Keeps persistence logic OUT of ViewModels
 enum SettingsStorage {
 
-    // Standard persistent storage for simple app settings
     private static let defaults = UserDefaults.standard
 
-    // MARK: - Sound Storage
+    // MARK: - Keys
 
-    // Generates a unique key per sound type
-    static func key(for type: GunSoundType) -> String {
-        "sound_\(type.rawValue)"
+    private static let goSoundKey = "goSound"
+    private static let minDelayKey = "minDelay"
+    private static let maxDelayKey = "maxDelay"
+    private static let marksWaitTimeKey = "marksWaitTime"
+
+    // MARK: - Gun Sound
+
+    /// Save selected gun sound (asset name only)
+    static func saveGoSound(_ sound: GunSound) {
+        defaults.set(sound.assetName, forKey: goSoundKey)
     }
 
-    // Saves only the asset name (not the full model)
-    static func saveSound(_ sound: GunSound) {
-        defaults.set(sound.assetName, forKey: key(for: sound.type))
-    }
-
-    // Loads a sound selection if it exists
-    static func loadSound(for type: GunSoundType) -> GunSound? {
-        guard let assetName = defaults.string(forKey: key(for: type)) else {
+    /// Load selected gun sound if it exists
+    static func loadGoSound() -> GunSound? {
+        guard let assetName = defaults.string(forKey: goSoundKey) else {
             return nil
         }
-        return GunSound(type: type, assetName: assetName)
+
+        // Map back to known defaults (safe)
+        return GunSoundDefaults.gunSounds.first {
+            $0.assetName == assetName
+        }
     }
 
-    // MARK: - Timing Storage
+    // MARK: - Timing
 
-    // Optional values allow clean fallback to defaults
     static var minDelay: Double? {
-        defaults.object(forKey: "minDelay") as? Double
+        defaults.object(forKey: minDelayKey) as? Double
     }
 
     static var maxDelay: Double? {
-        defaults.object(forKey: "maxDelay") as? Double
+        defaults.object(forKey: maxDelayKey) as? Double
     }
 
     static var marksWaitTime: Int? {
-        defaults.object(forKey: "marksWaitTime") as? Int
+        defaults.object(forKey: marksWaitTimeKey) as? Int
     }
 
-    // Generic setters keep the API small and flexible
-    static func set(_ value: Double, forKey key: String) {
-        defaults.set(value, forKey: key)
+    static func setMinDelay(_ value: Double) {
+        defaults.set(value, forKey: minDelayKey)
     }
 
-    static func set(_ value: Int, forKey key: String) {
-        defaults.set(value, forKey: key)
+    static func setMaxDelay(_ value: Double) {
+        defaults.set(value, forKey: maxDelayKey)
+    }
+
+    static func setMarksWaitTime(_ value: Int) {
+        defaults.set(value, forKey: marksWaitTimeKey)
     }
 }
-
