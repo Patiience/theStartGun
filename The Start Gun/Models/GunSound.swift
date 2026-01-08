@@ -7,20 +7,14 @@
 
 import Foundation
 
-enum GunSoundType: String, Codable {
-    case onYourMarks
-    case set
-    case go
-}
-
-struct GunSound: Identifiable, Equatable, Codable {
+struct GunSound: Identifiable, Equatable, Codable, Hashable {
     let id: UUID
-    let type: GunSoundType
+    let displayName: String
     let assetName: String   // name of audio file in Assets.xcassets
 
-    init(type: GunSoundType, assetName: String) {
+    init(assetName: String, displayName: String) {
         self.id = UUID()
-        self.type = type
+        self.displayName = displayName
         self.assetName = assetName
     }
 }

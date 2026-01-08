@@ -7,17 +7,24 @@
 
 struct GunSoundDefaults {
     static let onYourMarks = GunSound(
-        type: .onYourMarks,
-        assetName: "on_your_marks"
+        assetName: "on_your_marks",
+        displayName: "On Your Marks!"
     )
 
     static let set = GunSound(
-        type: .set,
-        assetName: "set"
+        assetName: "set",
+        displayName: "set"
     )
 
     static let go = GunSound(
-        type: .go,
-        assetName: "go"
+        assetName: "go",
+        displayName: "go"
     )
+    
+    // User-selectable gun sounds
+    static let gunSounds: [GunSound] = [
+        GunSound(assetName: "go_gun", displayName: "potato"),
+        GunSound(assetName: "go_gun", displayName: "potato"),
+        GunSound(assetName: "go_gun", displayName: "potato")
+    ]
 }
