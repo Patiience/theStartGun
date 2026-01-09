@@ -10,6 +10,7 @@ import Combine
 
 @MainActor
 final class SettingsViewModel: ObservableObject {
+    static let shared = SettingsViewModel()
 
     @Published var goSound: GunSound = GunSoundDefaults.gunSounds.first!
 

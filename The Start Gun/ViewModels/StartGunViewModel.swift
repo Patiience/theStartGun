@@ -15,7 +15,7 @@ final class StartGunViewModel: ObservableObject {
     // MARK: - Dependencies
 
     // Shared app settings (single source of truth)
-    private let settings: SettingsViewModel
+    private let settings: SettingsViewModel = SettingsViewModel.shared
 
     // Audio playback service
     private let audioPlayer = AudioPlayerService.shared
@@ -28,15 +28,11 @@ final class StartGunViewModel: ObservableObject {
 
     // Text shown to the user (optional, useful for debugging / UI)
     @Published var statusText: String = "Ready"
+    
+    @Published var lastDelay: Double? = nil
 
     // Task reference so the sequence can be cancelled
     private var sequenceTask: Task<Void, Never>?
-
-    // MARK: - Init
-
-    init(settings: SettingsViewModel) {
-        self.settings = settings
-    }
 
     // MARK: - Public API
 
@@ -81,6 +77,8 @@ final class StartGunViewModel: ObservableObject {
             let randomDelay = Double.random(
                 in: settings.minSetToGoDelay...settings.maxSetToGoDelay
             )
+            
+            lastDelay = randomDelay
 
             try await sleep(seconds: randomDelay)
 

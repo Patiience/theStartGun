@@ -11,7 +11,7 @@ struct SettingsView: View {
 
     // View does NOT own the settings
     // It just observes a shared SettingsViewModel
-    @ObservedObject var settingsViewModel: SettingsViewModel
+    @ObservedObject var settingsViewModel: SettingsViewModel = SettingsViewModel.shared
 
     var body: some View {
         Form {

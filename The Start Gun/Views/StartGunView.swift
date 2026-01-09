@@ -7,48 +7,69 @@
 import SwiftUI
 
 struct StartGunView: View {
-    // StateObjects define views @ObservedObject means passed in, while StateObject is owned by current View
-    
-    @EnvironmentObject var settings: SettingsViewModel
-    @StateObject private var viewModel: StartGunViewModel
 
-    init(settings: SettingsViewModel) {
-        _viewModel = StateObject(
-            wrappedValue: StartGunViewModel(settings: settings)
-        )
-    }
+    @StateObject private var viewModel: StartGunViewModel = StartGunViewModel()
 
     var body: some View {
-        VStack(spacing: 40) {
+        ZStack {
 
-            // Big "car start" style button
-            Button(action: {
-                viewModel.startSequence()
-            }) {
-                Text("START")
-                    .font(.system(size: 48, weight: .bold))
-                    .foregroundColor(.white)
-                    .frame(width: 220, height: 220)
-                    .background(Color.black)
-                    .clipShape(Circle())
-                    .overlay(
+            // MARK: - Background
+            Image("futuristic_background")
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea()
+                .overlay(
+                    LinearGradient(
+                        colors: [.black.opacity(0.7), .black.opacity(0.9)],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
+
+            VStack(spacing: 48) {
+
+                Spacer()
+
+                // MARK: - START Button
+                Button {
+                    viewModel.startSequence()
+                } label: {
+                    ZStack {
+                        Circle()
+                            .fill(
+                                RadialGradient(
+                                    colors: [.blue.opacity(0.9), .black],
+                                    center: .center,
+                                    startRadius: 10,
+                                    endRadius: 120
+                                )
+                            )
+
                         Circle()
                             .stroke(Color.blue, lineWidth: 6)
-                    )
-            }
 
-            // Show the delay after GO
-            if let delay = viewModel.lastDelay {
-                Text(String(format: "%.2f s", delay))
-                    .font(.title)
-                    .foregroundColor(.blue)
+                        Text("START")
+                            .font(.system(size: 42, weight: .heavy, design: .rounded))
+                            .foregroundColor(.white)
+                            .shadow(radius: 4)
+                    }
+                    .frame(width: 220, height: 220)
+                }
+                .buttonStyle(.plain)
+
+                // MARK: - Delay Readout
+                if let delay = viewModel.lastDelay {
+                    Text(String(format: "%.2f s", delay))
+                        .font(.title.monospacedDigit())
+                        .foregroundStyle(.blue)
+                        .transition(.opacity)
+                }
+
+                Spacer()
             }
+            .padding()
         }
-        .padding()
     }
 }
 
-#Preview {
-    StartGunView()
-}
 
