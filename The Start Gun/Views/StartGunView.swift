@@ -62,7 +62,8 @@ struct StartGunView: View {
                     Text(String(format: "%.2f s", delay))
                         .font(.title.monospacedDigit())
                         .foregroundStyle(.blue)
-                        .transition(.opacity)
+                        .transition(.opacity.combined(with: .scale))
+                        .animation(.easeInOut(duration: 0.25), value: viewModel.lastDelay)
                 }
 
                 Spacer()

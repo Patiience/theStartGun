@@ -40,6 +40,8 @@ final class StartGunViewModel: ObservableObject {
     func startSequence() {
         // Prevent double-starts
         guard !isRunning else { return }
+        
+        lastDelay = nil
 
         isRunning = true
         statusText = "On Your Marks"
