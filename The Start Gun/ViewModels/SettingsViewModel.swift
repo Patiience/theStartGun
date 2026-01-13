@@ -12,7 +12,7 @@ import Combine
 final class SettingsViewModel: ObservableObject {
     static let shared = SettingsViewModel()
 
-    @Published var goSound: GunSound = GunSoundDefaults.gunSounds.first!
+    @Published var goSound: Sound = SoundDefaults.gunSounds.first!
 
     @Published var minSetToGoDelay: Double
     @Published var maxSetToGoDelay: Double
@@ -21,7 +21,7 @@ final class SettingsViewModel: ObservableObject {
     init() {
         self.goSound =
             SettingsStorage.loadGoSound()
-            ?? GunSoundDefaults.gunSounds.first!
+            ?? SoundDefaults.gunSounds.first!
 
         self.minSetToGoDelay =
             SettingsStorage.minDelay ?? 1.5

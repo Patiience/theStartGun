@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct GunSound: Identifiable, Equatable, Codable, Hashable {
+struct Sound: Identifiable, Equatable, Codable, Hashable {
     let id: UUID
     let displayName: String
-    let assetName: String   // name of audio file in Assets.xcassets
+    let assetName: String
 
     init(assetName: String, displayName: String) {
         self.id = UUID()

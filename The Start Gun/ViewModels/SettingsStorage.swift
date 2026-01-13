@@ -21,18 +21,18 @@ enum SettingsStorage {
     // MARK: - Gun Sound
 
     /// Save selected gun sound (asset name only)
-    static func saveGoSound(_ sound: GunSound) {
+    static func saveGoSound(_ sound: Sound) {
         defaults.set(sound.assetName, forKey: goSoundKey)
     }
 
     /// Load selected gun sound if it exists
-    static func loadGoSound() -> GunSound? {
+    static func loadGoSound() -> Sound? {
         guard let assetName = defaults.string(forKey: goSoundKey) else {
             return nil
         }
 
         // Map back to known defaults (safe)
-        return GunSoundDefaults.gunSounds.first {
+        return SoundDefaults.gunSounds.first {
             $0.assetName == assetName
         }
     }

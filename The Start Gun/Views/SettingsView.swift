@@ -20,7 +20,7 @@ struct SettingsView: View {
 
                 // Picker binds directly to the selected sound
                 Picker("Sound", selection: $settingsViewModel.goSound) {
-                    ForEach(GunSoundDefaults.gunSounds) { sound in
+                    ForEach(SoundDefaults.gunSounds) { sound in
                         Text(sound.displayName)
                             .tag(sound)
                     }

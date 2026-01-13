@@ -8,8 +8,6 @@
 import Foundation
 import AVFoundation
 
-/* Example Usage: AudioPlayerService.shared.playSound(named: settings.goSound.assetName) */
-
 // Simple service responsible ONLY for audio playback
 final class AudioPlayerService {
 
@@ -28,7 +26,7 @@ final class AudioPlayerService {
         player?.stop()
 
         // Locate the audio file in the app bundle
-        guard let url = Bundle.main.url(forResource: assetName, withExtension: nil) else {
+        guard let url = Bundle.main.url(forResource: assetName, withExtension: "wav") else {
             print("Audio file not found: \(assetName)")
             return
         }
